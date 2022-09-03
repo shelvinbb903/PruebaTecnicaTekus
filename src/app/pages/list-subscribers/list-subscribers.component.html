@@ -1,0 +1,40 @@
+<br>
+<div class="container">
+    <form>
+        <div class="mb-5 row">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Buscar</mat-label>
+                <input matInput value="">
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            
+        </div>
+      </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Population</th>
+            <th scope="col">País</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of listSubscribers; let i = index">
+                <th scope="row" class="align-middle">{{ i + 1 }}</th>
+                <td class="align-middle">{{ country.Name }}</td>
+                <td class="align-middle">{{ country.Email }}</td>
+                <td class="align-middle">{{ country.CountryName }}</td>
+                <td class="align-middle">
+                    <button mat-mini-fab color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button> 
+                    <button mat-mini-fab color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+              </tr>
+        </tbody>
+    </table>
+</div>
