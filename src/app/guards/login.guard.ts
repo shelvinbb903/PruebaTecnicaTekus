@@ -6,7 +6,7 @@ import { UsersService } from '../services/users.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SessionGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
   constructor(private usersService: UsersService, private router: Router) {}
 
   async canActivate(
@@ -14,12 +14,11 @@ export class SessionGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
     
     await this.usersService.loadDataSession();
-    
-    if(JSON.stringify(this.usersService.dataUserLogin) === '{}') {
-      this.router.navigate(["login"])
+
+    if(JSON.stringify(this.usersService.dataUserLogin) !== '{}') {
+      this.router.navigate(["listSubscribers"])
       return false;  
     }
-     
     return true;
   }
   

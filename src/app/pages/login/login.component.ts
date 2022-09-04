@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   password = "";
   hidePassword = true;
   errors = "";
+  showProgress = false;
   
   constructor(private usersService: UsersService, private router: Router) { }
 
@@ -25,15 +26,16 @@ export class LoginComponent implements OnInit {
    * @return  {[type]}  [return description]
    */
   async loginUser(){
+    this.showProgress = true;
     const response:any = await this.usersService.loginUsers(this.userName, this.password);
     if(!response.error) {
-      this.usersService.dataUserLogin = response.data;
+      await this.usersService.saveDataSession(response.data);      
       this.errors = "";
       this.router.navigate(['listSubscribers']);
     } else {
       this.errors = response.data;
     }
-    console.log(this.errors)
+    this.showProgress = false;
   }
   
 

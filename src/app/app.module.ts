@@ -7,6 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     PagesModule,
+    ComponentsModule,
     HttpClientModule,
     NgbModule,
     BrowserAnimationsModule

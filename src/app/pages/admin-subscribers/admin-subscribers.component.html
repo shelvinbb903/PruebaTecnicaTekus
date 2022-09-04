@@ -1,1 +1,49 @@
-<p>admin-subscribers works!</p>
+<br>
+<div class="container">
+    <app-header [eventBtn]="goBack" iconBtn="home" title="Patatas Subscribers ToGo"></app-header>
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-11">
+        
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput value="">
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput value="">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>País</mat-label>
+                        <mat-select>
+                          <mat-option value="">Seleccione...</mat-option>
+                          <mat-option *ngFor="let item of countries" [value]="item.Code">{{ item.Name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput value="">
+                    </mat-form-field>
+        
+                    <section>
+                        <button mat-raised-button color="primary">
+                            Guardar
+                        </button>
+                    </section> 
+
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-footer *ngIf="showProgress">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>        
+    </mat-card>   
+  
+</div>
+
+

@@ -1,22 +1,32 @@
+
 <br>
 <div class="container">
-    <form>
-        <div class="mb-5 row">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Buscar</mat-label>
-                <input matInput value="">
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            
-        </div>
-      </form>
+    <app-header [eventBtn]="logout" iconBtn="logout" title="Patatas Subscribers ToGo"></app-header>
+    
+    <div class="row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Buscar</mat-label>
+            <input matInput value="">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>            
+    </div>
+    <button mat-mini-fab color="primary" matTooltip="Buscar">
+        <mat-icon>search</mat-icon>
+    </button>
+    <button mat-mini-fab color="success" (click)="openAdminSubscriber()" matTooltip="Agregar">
+        <mat-icon>add</mat-icon>
+    </button><br><br>
+    
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Population</th>
+            <th scope="col">Email</th>
+            <th scope="col">Area</th>
             <th scope="col">País</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Estado</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -25,16 +35,20 @@
                 <th scope="row" class="align-middle">{{ i + 1 }}</th>
                 <td class="align-middle">{{ country.Name }}</td>
                 <td class="align-middle">{{ country.Email }}</td>
+                <td class="align-middle">{{ country.Area }}</td>
                 <td class="align-middle">{{ country.CountryName }}</td>
+                <td class="align-middle">{{ country.PhoneNumber }}</td>
+                <td class="align-middle">{{ country.SubscriptionStateDescription }}</td>
                 <td class="align-middle">
-                    <button mat-mini-fab color="primary">
+                    <button mat-mini-fab color="primary" (click)="openAdminSubscriber()">
                         <mat-icon>edit</mat-icon>
                     </button> 
-                    <button mat-mini-fab color="warn">
+                    <button mat-mini-fab color="warn" (click)="deleteSubscriber()">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
               </tr>
         </tbody>
     </table>
+    <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
 </div>
