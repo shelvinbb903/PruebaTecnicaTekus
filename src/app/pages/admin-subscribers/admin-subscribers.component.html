@@ -1,0 +1,66 @@
+<br>
+<div class="container">
+    <app-header [eventBtn]="goBack" iconBtn="home" title="Patatas Subscribers ToGo"></app-header>
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-11">
+        
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput [(ngModel)]="subscriber.Name">
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Correo Electrónico</mat-label>
+                        <input matInput [(ngModel)]="subscriber.Email">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>País</mat-label>
+                        <mat-select [(ngModel)]="subscriber.CountryCode">
+                          <mat-option value="">Seleccione...</mat-option>
+                          <mat-option *ngFor="let item of countries" [value]="item.Code">{{ item.Name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Número Teléfono</mat-label>
+                        <input matInput type="number" [(ngModel)]="subscriber.PhoneNumber">
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Área</mat-label>
+                        <input matInput [(ngModel)]="subscriber.Area">
+                    </mat-form-field>
+    
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Trabajo</mat-label>
+                        <input matInput [(ngModel)]="subscriber.JobTitle">
+                    </mat-form-field>
+        
+                    <section class="controls">
+                        <button mat-raised-button color="primary" (click)="saveSubscriber()">
+                            Guardar
+                        </button>
+                        <button mat-raised-button color="warn" (click)="goBack()">
+                            Cancelar
+                        </button>
+                    </section> 
+
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-footer *ngIf="showProgress">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>        
+    </mat-card><br>
+        
+    <ngb-alert [type]="messageType" [dismissible]="false" *ngIf="message != ''">
+        {{ message }}
+    </ngb-alert>
+  
+</div>
+
+
