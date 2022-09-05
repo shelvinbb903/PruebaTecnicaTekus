@@ -16,7 +16,7 @@ export class RestService {
    * @param   {string}  token Token de la sesion del usuario
    * @param   {boolean}  sendToken Validar si el servicio rest envia el token de la sesion o no
    *
-   * @return  {Promise<object>}   [Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error]
+   * @return  {Promise<object>}   Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error
    */
   connectionPOST(url: string, data: any, token: string = "", sendToken: boolean = true) {
     return new Promise(resolve => {
@@ -49,7 +49,7 @@ export class RestService {
    * @param   {any}     data  Parametros a enviar en el servicio rest
    * @param   {string}  token Token de la sesion del usuario
    *
-   * @return  {Promise<object>}   [Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error]
+   * @return  {Promise<object>}   Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error
    */
   connectionDELETE(url: string, data: any, token: string = "") {
     return new Promise(resolve => {
@@ -80,7 +80,7 @@ export class RestService {
    * @param   {any}     data  Parametros a enviar en el servicio rest
    * @param   {string}  token Token de la sesion del usuario
    *
-   * @return  {Promise<object>}   [Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error]
+   * @return  {Promise<object>}   Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error
    */
   connectionPUT(url: string, data: any, token: string = "") {
     return new Promise(resolve => {
@@ -111,7 +111,7 @@ export class RestService {
    * @param   {any}     data  Parametros a enviar en el servicio rest
    * @param   {string}  token Token de la sesion del usuario
    *
-   * @return  {Promise<object>}        [Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error]
+   * @return  {Promise<object>}        Se genera una promesa con el resultado del servicio rest, ya sea correcto o con error
    */
   connectionGET(url: string, data: any, token: string) {
     return new Promise(resolve => {
