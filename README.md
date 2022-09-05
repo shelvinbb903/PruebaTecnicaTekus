@@ -7,6 +7,8 @@ Este proyecto fue generado con las siguientes caracteristicas:
 - NPM versión 8.11.0
 - Node.js versión 16.15.1
 - Compodoc para la documentación del proyecto
+- Bootstrap
+- Meterial Design
 
 ## Instrucciones
 
