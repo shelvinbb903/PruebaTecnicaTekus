@@ -6,21 +6,23 @@
     <div class="row">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Buscar</mat-label>
-            <input matInput value="">
-            <mat-icon matSuffix>search</mat-icon>
+            <input matInput [(ngModel)]="tableTools.dataFilter" (keydown.enter)="filterTable()">
+            <mat-icon matSuffix (click)="filterTable()">search</mat-icon>
         </mat-form-field>            
     </div>
-    <button mat-mini-fab color="primary" matTooltip="Buscar">
-        <mat-icon>search</mat-icon>
-    </button>
-    <button mat-mini-fab color="success" (click)="openAdminSubscriber()" matTooltip="Agregar">
-        <mat-icon>add</mat-icon>
-    </button><br><br>
+    
+    <div class="controls">
+        <button mat-mini-fab color="primary" matTooltip="Buscar" (click)="filterTable()">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-mini-fab color="success" (click)="openAdminSubscriber('CREATE')" matTooltip="Agregar">
+            <mat-icon>add</mat-icon>
+        </button><br><br>
+    </div>
     
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Email</th>
             <th scope="col">Area</th>
@@ -28,27 +30,57 @@
             <th scope="col">Teléfono</th>
             <th scope="col">Estado</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let country of listSubscribers; let i = index">
-                <th scope="row" class="align-middle">{{ i + 1 }}</th>
-                <td class="align-middle">{{ country.Name }}</td>
-                <td class="align-middle">{{ country.Email }}</td>
-                <td class="align-middle">{{ country.Area }}</td>
-                <td class="align-middle">{{ country.CountryName }}</td>
-                <td class="align-middle">{{ country.PhoneNumber }}</td>
-                <td class="align-middle">{{ country.SubscriptionStateDescription }}</td>
-                <td class="align-middle">
-                    <button mat-mini-fab color="primary" (click)="openAdminSubscriber()">
+            <tr *ngFor="let subscriber of listSubscribers">
+                <td class="align-middle">{{ subscriber.Name }}</td>
+                <td class="align-middle">{{ subscriber.Email }}</td>
+                <td class="align-middle">{{ subscriber.Area }}</td>
+                <td class="align-middle">{{ subscriber.CountryName }}</td>
+                <td class="align-middle">{{ subscriber.PhoneNumber }}</td>
+                <td class="align-middle">{{ subscriber.SubscriptionStateDescription }}</td>
+                <td class="align-middle controls">
+                    <button mat-mini-fab color="primary" matTooltip="Editar" (click)="openAdminSubscriber('UPDATE', subscriber.Id)">
                         <mat-icon>edit</mat-icon>
                     </button> 
-                    <button mat-mini-fab color="warn" (click)="deleteSubscriber()">
+                    <button mat-mini-fab color="warn" matTooltip="Eliminar" (click)="deleteSubscriber(content, subscriber.Id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
               </tr>
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-3">
+            <select class="form-select" [(ngModel)]="tableTools.pageSize" (change)="pageChanged(tableTools.currentPage)">
+                <option [value]="item" *ngFor="let item of [5,10,15,20]">{{ item }}</option>
+              </select>
+        </div>   
+        <div class="col">
+            <ngb-pagination
+                [(page)]="tableTools.currentPage"
+                [pageSize]="tableTools.pageSize"
+                [collectionSize]="tableTools.listSize" 
+                [boundaryLinks]="true"
+                [maxSize]="5" 
+                (pageChange)="pageChanged($event)"></ngb-pagination>
+        </div>
+    </div>
     <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h2 class="modal-title no-margin">Confirmación</h2>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>¿Desea eliminar este suscriptor?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Si')">Si</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('No')">No</button>
+    </div>
+  </ng-template>

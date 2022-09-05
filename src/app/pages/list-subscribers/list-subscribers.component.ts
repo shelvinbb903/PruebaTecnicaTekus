@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { SubscribersService } from '../../services/subscribers.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-subscribers',
@@ -10,28 +11,30 @@ import { Router } from '@angular/router';
 })
 export class ListSubscribersComponent implements OnInit {
   listSubscribers: any = [];
+  tableTools = {
+    dataFilter: "",
+    currentPage: 1,
+    pageSize: 5,
+    listSize: 0
+  }
+
+  showProgress = false;
 
   constructor(
     private usersService: UsersService, 
     private subscribersService: SubscribersService, 
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
-
-  showProgress = false;
 
   async ngOnInit() {
     this.showProgress = true;
-    const response:any = await this.subscribersService.listSubscribers();
-    if(!response.error) {
-      this.listSubscribers = response.data.Data;
-    } else {
-      this.logout();
-    }
+    await this.getSubscribers(this.tableTools.currentPage, this.tableTools.pageSize)
     this.showProgress = false;  
   }
 
   /**
-   * [logout Cerrar sesion]
+   * Cerrar sesion
    *
    */
   async logout() {
@@ -40,21 +43,75 @@ export class ListSubscribersComponent implements OnInit {
   }
 
   /**
-   * [openAdminSubscriber Abrir pagina de editar/crear subscriptor]
+   * Abrir pagina de editar/crear subscriptor
    *
    */
-  openAdminSubscriber() {
+  openAdminSubscriber(action: string, id: string = "") {
+    this.subscribersService.optionAdmin = action
+    this.subscribersService.idUpdate = id
     this.router.navigate(["/adminSubscribers"])
   }
 
   /**
-   * [deleteSubscriber Eliminar un subscriptor]
+   * Eliminar un subscriptor
    * 
    */
-  deleteSubscriber() {
-    
+  async deleteSubscriber(content:any, id:string) {    
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(async (result) => {
+      if(result == "Si"){
+        this.showProgress = true;
+        const response:any = await this.subscribersService.deleteSubscriber(id);
+        if(!response.error) {
+          await this.getSubscribers(this.tableTools.currentPage, this.tableTools.pageSize);
+        }
+        this.showProgress = false;
+      }
+    }, (reason) => {});
   }
 
-}
+  /**
+   * Obtener el listado de los suscriptores enviando los parametros de busqueda
+   *
+   * @param   {number}  page      Pagina actual
+   * @param   {number}  pageSize  Numero de filas por pagina
+   *
+   */
+  async getSubscribers(page:number, pageSize:number) {
+    const data = {
+      page,
+      count: pageSize,
+      criteria: this.tableTools.dataFilter
+    }
+    const response:any = await this.subscribersService.listSubscribers(data);
+    if(!response.error) {
+      this.listSubscribers = response.data.Data;
+      this.tableTools.listSize = response.data.Count
+    } else {
+      this.logout();
+    }
+  }
 
-export class DialogContentExampleDialog {}
+  /**
+   * Metodo para filtrar los datos de la tabla con respecto al campo de busqueda
+   * 
+   */
+  async filterTable() {
+    this.showProgress = true;
+    await this.getSubscribers(this.tableTools.currentPage, this.tableTools.pageSize);
+    this.showProgress = false;
+  }
+
+  /**
+   * Metodo que genera el listado de suscriptores en la paginación
+   *
+   * @param   {any}   event  Pagina actual
+   *
+   */
+  async pageChanged(event: any) {
+    this.showProgress = true;
+    this.tableTools.currentPage = event;
+    await this.getSubscribers(this.tableTools.currentPage, this.tableTools.pageSize);
+    this.showProgress = false;
+  };
+
+}

@@ -20,10 +20,9 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * [loginUser Conectar al servicio de login para obtener los datos del usuario y 
-   * el token generado para la sesion]
-   *
-   * @return  {[type]}  [return description]
+   * Conectar al servicio de login para obtener los datos del usuario y 
+   * el token generado para la sesion
+   * 
    */
   async loginUser(){
     this.showProgress = true;

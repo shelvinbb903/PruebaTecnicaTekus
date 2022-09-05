@@ -12,10 +12,10 @@ export class UsersService {
   constructor(private restService: RestService) { }
 
   /**
-   * [loginUsers description]
+   * Conectar al servicio de login para obtener datos del usuario y token de la sesion
    *
-   * @param   {string}  user      [user Usuario que va a hacer login]
-   * @param   {string}  password  [password Contraseña del usuario]
+   * @param   {string}  user      Usuario que va a hacer login
+   * @param   {string}  password  Contraseña del usuario
    *
    * @return  {Promise<object>}   [return Retorna el valor en una promesa]
    */
@@ -31,9 +31,9 @@ export class UsersService {
   }
 
   /**
-   * [saveDataSession Guardar los datos del login en la sesion]
+   * Guardar los datos del login en la sesion
    *
-   * @param   {any}  data  [data Datos del login]
+   * @param   {any}  data  Datos del login
    * 
    */
   saveDataSession(data: any) {
@@ -45,7 +45,7 @@ export class UsersService {
   }
 
   /**
-   * [loadDataSession Cargar los datos de la sesion]
+   * Cargar los datos de la sesion
    * 
    */
   async loadDataSession() {
@@ -56,7 +56,7 @@ export class UsersService {
   }
 
   /**
-   * [clearSession Borrar los datos de la sesion]
+   * Borrar los datos de la sesion
    *
    */
   clearSession() {

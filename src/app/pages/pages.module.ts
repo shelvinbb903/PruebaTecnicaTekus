@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ComponentsModule } from '../components/components.module';
     MatProgressBarModule,
     ComponentsModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule
   ]
 })
 export class PagesModule { }
